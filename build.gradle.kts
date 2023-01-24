@@ -6,6 +6,7 @@ plugins {
     kotlin("jvm") version "1.6.21"
     kotlin("plugin.spring") version "1.6.21"
     kotlin("plugin.jpa") version "1.6.21"
+    id("org.flywaydb.flyway") version "7.12.0"
 }
 
 group = "hyeon9mak"
@@ -22,13 +23,25 @@ allOpen {
     annotation("javax.persistence.Embeddable")
 }
 
+flyway {
+    url = "jdbc:mariadb://localhost:53306/tweeter_system_design"
+    user = "user"
+    password = "password"
+}
+
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")
+
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+
+    runtimeOnly("org.mariadb.jdbc:mariadb-java-client")
     implementation("org.flywaydb:flyway-core")
+    implementation("org.flywaydb:flyway-mysql")
+
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 

@@ -1,1 +1,14 @@
+spring:
 
+  datasource:
+    url: jdbc:mariadb://localhost:53306/tweeter_system_design
+    username: user
+    password: password
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
