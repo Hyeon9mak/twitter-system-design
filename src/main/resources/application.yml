@@ -12,3 +12,7 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
+
+  redis:
+    host: localhost
+    port: 5379
