@@ -11,6 +11,7 @@ class User(
     id: Long,
     username: String,
     profilePic: String,
+    influencer: Boolean = false,
 ) {
     @Id
     val id: Long = id
@@ -21,6 +22,10 @@ class User(
 
     @Column(name = "profile_pic", nullable = false)
     var profilePic: String = profilePic
+        protected set
+
+    @Column(nullable = false)
+    var influencer: Boolean = influencer
         protected set
 
     override fun equals(other: Any?): Boolean {

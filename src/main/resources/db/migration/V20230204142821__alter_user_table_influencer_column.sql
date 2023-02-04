@@ -1,0 +1,4 @@
+ALTER TABLE
+    user
+ADD COLUMN
+    influencer BOOLEAN NOT NULL DEFAULT FALSE;
