@@ -22,7 +22,7 @@ class TweetService(
     fun postTweet(senderId: Long, text: String): Long {
         val user = userRepository.findUserById(id = senderId)
         val tweet = tweetRepository.save(Tweet(senderId = user.id, text = text))
-        pushToFollowersFeed(user = user, tweet = tweet)
+        if (user.isNotInfluencer()) { pushToFollowersFeed(user = user, tweet = tweet) }
         return tweet.id
     }
 

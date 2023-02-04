@@ -25,8 +25,11 @@ class User(
         protected set
 
     @Column(nullable = false)
-    var influencer: Boolean = influencer
-        protected set
+    private var influencer: Boolean = influencer
+
+    fun isNotInfluencer(): Boolean {
+        return !influencer
+    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
