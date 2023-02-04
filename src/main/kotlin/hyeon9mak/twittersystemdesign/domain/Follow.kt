@@ -13,6 +13,8 @@ class Follow(
     @EmbeddedId
     val id: FollowId = FollowId(followerId = followerId, followeeId = followeeId)
 
+    fun getFollowerId(): Long = id.followerId
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false

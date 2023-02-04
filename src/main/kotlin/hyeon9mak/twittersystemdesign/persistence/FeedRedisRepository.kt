@@ -13,4 +13,8 @@ class FeedRedisRepository(
     override fun findAllByUserId(userId: Long): List<Feed> =
         redisTemplate.opsForList().range(userId, 0, -1)
             ?: throw IllegalStateException("Redis Connection Error")
+
+    override fun leftPushFeed(userId: Long, feed: Feed) {
+        redisTemplate.opsForList().leftPush(userId, feed)
+    }
 }
