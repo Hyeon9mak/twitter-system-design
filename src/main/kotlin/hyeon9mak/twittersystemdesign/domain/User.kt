@@ -27,8 +27,10 @@ class User(
     @Column(nullable = false)
     private var influencer: Boolean = influencer
 
-    fun isNotInfluencer(): Boolean {
-        return !influencer
+    fun isNotInfluencer(): Boolean = influencer.not()
+
+    fun becomeInfluencer() {
+        influencer = true
     }
 
     override fun equals(other: Any?): Boolean {

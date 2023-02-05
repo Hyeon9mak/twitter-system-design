@@ -15,12 +15,10 @@ interface TweetRepository : JpaRepository<Tweet, Long> {
             )
         FROM Tweet t
         JOIN User u ON t.senderId = u.id
-        JOIN Follow f ON f.id.followeeId = u.id
-        WHERE f.id.followerId = :userId
-        ORDER BY t.timestamp DESC
+        WHERE t.id = :id
         """
     )
-    fun findAllFeeds(userId: Long): List<Feed>
+    fun findFeedById(id: Long): Feed
 
     @Query(
         """
@@ -32,8 +30,11 @@ interface TweetRepository : JpaRepository<Tweet, Long> {
             )
         FROM Tweet t
         JOIN User u ON t.senderId = u.id
-        WHERE t.id = :id
+        JOIN Follow f ON f.id.followeeId = u.id
+        WHERE f.id.followerId = :followerId
+        AND u.influencer = true
+        ORDER BY t.timestamp DESC
         """
     )
-    fun findFeedById(id: Long): Feed
+    fun findInfluencerTweetsByFollowerId(followerId: Long): List<Feed>
 }

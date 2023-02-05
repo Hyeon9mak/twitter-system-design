@@ -15,7 +15,11 @@ class FeedService(
     private val feedRepository: FeedRepository,
     private val tweetRepository: TweetRepository,
 ) {
-    fun getFeeds(userId: Long): List<Feed> = feedRepository.findAllByUserId(userId = userId)
+    fun getFeeds(userId: Long): List<Feed> {
+        val cachedFeeds = feedRepository.findAllByUserId(userId = userId)
+        val influencerFeeds = tweetRepository.findInfluencerTweetsByFollowerId(followerId = userId)
+        return cachedFeeds + influencerFeeds
+    }
 
     fun getFeed(feedId: Long): Feed = tweetRepository.findFeedById(id = feedId)
 }
