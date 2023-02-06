@@ -17,26 +17,43 @@ class DatabaseInitializer(
 ) : CommandLineRunner {
 
     override fun run(vararg args: String?) {
+        register13000users()
+        tweet99Users()
         initUser1()
+        initUser2()
         initObama()
     }
 
-    private fun initUser1() {
-        userService.registerUser(id = 1L, username = "user1", profilePic = "user1.png")
-        for (i: Long in 2L..100L) {
+    private fun register13000users() {
+        for (i: Long in 1L..13_000L) {
             userService.registerUser(id = i, username = "user$i", profilePic = "user$i.png")
-            followRepository.save(Follow(followerId = 1L, followeeId = i))
+        }
+    }
+
+    private fun tweet99Users() {
+        for (i: Long in 2L..100L) {
             tweetService.postTweet(senderId = i, text = "user$i's first tweet")
             tweetService.postTweet(senderId = i, text = "user$i's second tweet")
             tweetService.postTweet(senderId = i, text = "user$i's third tweet")
         }
     }
 
+    private fun initUser1() {
+        for (i: Long in 2L..100L) {
+            followRepository.save(Follow(followerId = 1L, followeeId = i))
+        }
+    }
+
+    private fun initUser2() {
+        followRepository.save(Follow(followerId = 2L, followeeId = 3L))
+    }
+
     private fun initObama() {
-        userService.registerUser(id = 101L, username = "obama", profilePic = "obama.png")
-        for (i: Long in 102L..13_102L) {
-            userService.registerUser(id = i, username = "user$i", profilePic = "user$i.png")
-            followRepository.save(Follow(followerId = i, followeeId = 101L))
+        userService.registerUser(id = 13_001L, username = "obama", profilePic = "obama.png")
+        tweetService.postTweet(senderId = 13_001L, text = "obama's first tweet")
+
+        for (i: Long in 1L..13_000L) {
+            followRepository.save(Follow(followerId = i, followeeId = 13_001L))
         }
     }
 }
