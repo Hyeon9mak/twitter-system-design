@@ -16,43 +16,41 @@ class DatabaseInitializer(
 ) : CommandLineRunner {
 
     override fun run(vararg args: String?) {
-        register13000users()
-        tweet99Users()
-        initUser1()
-        initUser2()
+        register100users()
+        initUserA()
+        initUserB()
         initObama()
+        tweet100Users()
     }
 
-    private fun register13000users() {
-        for (i: Long in 1L..13_000L) {
+    private fun register100users() {
+        for (i: Long in 1L..100L) {
             userService.registerUser(id = i, username = "user$i", profilePic = "user$i.png")
         }
     }
 
-    private fun tweet99Users() {
-        for (i: Long in 2L..100L) {
-            tweetService.postTweet(senderId = i, text = "user$i's first tweet")
-            tweetService.postTweet(senderId = i, text = "user$i's second tweet")
-            tweetService.postTweet(senderId = i, text = "user$i's third tweet")
+    private fun initUserA() {
+        userService.registerUser(id = 101L, username = "userA", profilePic = "userA.png")
+        for (i: Long in 1L..100L) {
+            followService.follow(followerId = 101L, followeeId = i)
         }
     }
 
-    private fun initUser1() {
-        for (i: Long in 2L..100L) {
-            followService.follow(followerId = 1L, followeeId = i)
-        }
-    }
-
-    private fun initUser2() {
-        followService.follow(followerId = 2L, followeeId = 3L)
+    private fun initUserB() {
+        userService.registerUser(id = 102L, username = "userB", profilePic = "userB.png")
+        followService.follow(followerId = 102L, followeeId = 1L)
     }
 
     private fun initObama() {
-        userService.registerUser(id = 13_001L, username = "obama", profilePic = "obama.png")
-        tweetService.postTweet(senderId = 13_001L, text = "obama's first tweet")
+        userService.registerUser(id = 103L, username = "obama", profilePic = "obama.png")
+        for (i: Long in 1L..100L) {
+            followService.follow(followerId = i, followeeId = 103L)
+        }
+    }
 
-        for (i: Long in 1L..13_000L) {
-            followService.follow(followerId = i, followeeId = 13_001L)
+    private fun tweet100Users() {
+        for (i: Long in 1L..100L) {
+            tweetService.postTweet(senderId = i, text = "user$i's tweet")
         }
     }
 }
