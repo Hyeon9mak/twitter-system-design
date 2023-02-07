@@ -44,7 +44,7 @@ class DatabaseInitializer(
 
     private fun initObama() {
         userService.registerUser(id = 103L, username = "obama", profilePic = "obama.png")
-        for (i: Long in 1L..100L) {
+        for (i: Long in 1L..102L) {
             followRepository.save(Follow(followerId = i, followeeId = 103L))
         }
     }
