@@ -21,6 +21,8 @@ class DatabaseInitializer(
         initUserB()
         initObama()
         tweet100Users()
+        initUserC()
+        initUserD()
     }
 
     private fun register100users() {
@@ -52,5 +54,15 @@ class DatabaseInitializer(
         for (i: Long in 1L..100L) {
             tweetService.postTweet(senderId = i, text = "user$i's tweet")
         }
+    }
+
+    private fun initUserC() {
+        userService.registerUser(id = 104L, username = "userC", profilePic = "userC.png")
+        followService.follow(followerId = 104L, followeeId = 103L)
+    }
+
+    private fun initUserD() {
+        userService.registerUser(id = 105L, username = "userD", profilePic = "userD.png")
+        followService.follow(followerId = 105L, followeeId = 103L)
     }
 }
